@@ -1,0 +1,3 @@
+function r=r_cfdb(p,emis,c0,f_aer,f_other)
+
+[pco2 t r]=prm_cfdb(p,emis,c0,f_aer,f_other);

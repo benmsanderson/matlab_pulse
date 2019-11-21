@@ -1,0 +1,8 @@
+summary
+plot_budget_all
+ plot_temps_all
+plot_emis_all
+plot_plumes_all
+plot_tcnst_all
+plot_zecbudget
+plot_zecbudget_all

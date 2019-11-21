@@ -1,0 +1,151 @@
+
+
+ 
+figure(2)
+clf
+  figure(1)
+  clf
+
+  subplot(2,2,1)
+  % plot(tim21,tomat85','color',[0.7,0.4,0.4])
+ % p85=areabar(tim21,tomat85',10,[0.7,0.4,0.4],0,'-',0.2,3,3);
+ 
+  hold on
+ %    p85ml=areabar(tim21,tomat85ml',10,[0.7,0.4,0.4],1,'-.',0.7);
+
+    p85=areabar(tim21,tomat85',10,[0.7,0.4,0.4],5,'-',0.7,0,3);
+
+%   p85cf=areabar(tim21,tomat85cf',10,[0.7,0.4,0.4],1,':');
+ %  p85nl=areabar(tim21,tomat85nl',10,[0.7,0.4,0.4],0,'--');
+
+
+   hold on
+   %   plot(tim3000,tomat26ne','color',[0.4,0.4,0.7])
+   %  p26n=areabar(tim3000,tomat26ne',5,[0.4,0.7,0.4],0)
+   %   p26ncf=areabar(tim3000,tomat26necf',5,[0.4,0.7,0.4])
+          %     p26nnl=areabar(tim3000,tomat26nenl',5,[0.4,0.7,0.4],0,'--')
+
+   %   plot(tim21,tomat26','color',[0.4,0.7,0.4])
+
+ %        p26cf=areabar(tim3000,tomat26ml',10,[0.4,0.4,0.7],1,'-.',0.7);
+
+      p26=areabar(tim3000,tomat26',5,[0.4,0.4,0.7],1,'-',0.7,0,3);
+  %    p26cf=areabar(tim3000,tomat26cf',10,[0.4,0.4,0.7],0,':');
+  %    [p26nl,a]=areabar(tim3000,tomat26nl',10,[0.4,0.4,0.7],0,'--');
+      
+%      p26ne=areabar(tim3000,tomat26ne',10,[0.4,0.7,0.4],0,'-');
+ %   p26necf=areabar(tim3000,tomat26necf',10,[0.4,0.7,0.4],0,':');
+%    p26nenl=areabar(tim3000,tomat26nenl',10,[0.4,0.7,0.4],0,'--');
+%    p26neml=areabar(tim3000,tomat26neml',10,[0.4,0.7,0.4],0,'-.',0.7);
+
+   ph=plot(tim_had,gm_had,'k','linewidth',2);
+legend([p85,p26,ph],'RCP8.5','RCP2.6','HadCRUT','location','northwest')
+   xlim([1870,2150]);
+   ylim([-1,8]);
+   xlabel('Year');
+   ylabel({'Global mean temperature','above 1850 (T_g, K)'});
+   title('(a)');
+  
+
+   subplot(2,2,2)
+
+for i=1:400
+  b2=regress(stmat((i),:)',[srmat((i),:)',ones(size(srmat,2),1)]);
+  tmpgr(i)=b2(2);
+ end
+
+ 
+pr=prctile(tmpgr     ,[1,25,50,75,99])
+rectangle('Position',[10,pr(2),10,pr(4)-pr(2)],'edgecolor',[.8,.8,.8],'facecolor',[.5,.5,.5])
+hold on
+p3=plot(15*[1,1],[pr(1),pr(5)],'color',[.5,.5,.5])
+  p2=areabar(1:150,stmat(:,:)',5,[0.5,.8,0.5],1,'-',0.7,0,3)
+
+p1=areabar(1:150,stcrmat(:,:)',5,[0.7,.5,0.7],1,'-',0.7,0,3)
+hold on
+hold on
+title('(b)')
+legend([p1,p2,p3],'1pctCO2','abrupt4xCO2','EffCS','location','southeast')
+
+subplot(2,2,3)
+ p1=plot(tcr4mat,tomat85(:,335)-tomat85(:,235),'.','markersize',10,'color',[0.8,0.4,0.4])
+ hold on
+ [b,~,~,~,stats]=regress((tomat85(:,335)-tomat85(:,235)),[tcr4mat;ones(size(tcr4mat))]');
+ 
+ plot([0,15],[0,15;1,1]'*b,':','linewidth',3,'color',[0.8,0.4,0.4]/2+0.5)
+
+ r2(1)=stats(1); 
+ p2=plot(gregmat,tomat85(:,335)-tomat85(:,235),'.','markersize',10,'color',[0.4,0.8,0.4])
+  [b,~,~,~,stats]=regress((tomat85(:,335)-tomat85(:,235)),[gregmat;ones(size(tcr4mat))]')
+ plot([0,20],[0,20;1,1]'*b,':','linewidth',3,'color',[0.4,0.8,0.4]/2+0.5)
+ r2(2)=stats(1);
+
+
+ 
+ p3=plot(tcrmat,tomat85(:,335)-tomat85(:,235),'.','markersize',10,'color',[0.4,0.4,0.8])
+  [b,~,~,~,stats] =regress((tomat85(:,335)-tomat85(:,235)),[tcrmat;ones(size(tcr4mat))]')
+ plot([0,20],[0,20;1,1]'*b,':','linewidth',3,'color',[0.4,0.4,0.8]/2+0.5)
+ r2(3)=stats(1);
+
+
+ p4=plot(abs(stmat(:,150)'),tomat85(:,335)-tomat85(:,235),'.','markersize',10,'color',[0.8,0.4,0.8])
+    [b,~,~,~,stats]=regress((tomat85(:,335)-tomat85(:,235)),[abs(stmat(:,150)');ones(size(tcr4mat))]')
+   plot([0,60],[0,60;1,1]'*b,':','linewidth',3,'color',[0.8,0.4,0.8]/2+0.5)
+ r2(4)=stats(1);
+
+   
+legend([p1,p2,p3,p4],['T140 (R^2=' num2str(r2(1),2) ')'],['EffCS (R^2=' num2str(r2(2),2) ')'],['TCR (R^2=' num2str(r2(3),2) ')'],['A140 (R^2=' num2str(r2(4),2) ')'],'location','southeast')
+  ylabel('Warming 2000-2100 (K)')
+  xlabel('(K)')
+  xlim([0,30])
+  ylim([0,8])
+ 
+title('(c) RCP8.5')
+  
+subplot(2,2,4)
+ p1=plot(tcr4mat,tomat26(:,335)-tomat26(:,235),'.','markersize',10,'color',[0.8,0.4,0.4])
+ hold on
+ [b,~,~,~,stats]=regress((tomat26(:,335)-tomat26(:,235)),[tcr4mat;ones(size(tcr4mat))]');
+ 
+ plot([0,10],[0,10;1,1]'*b,':','linewidth',3,'color',[0.8,0.4,0.4]/2+0.5)
+
+ r2(1)=stats(1); 
+ p2=plot(gregmat,tomat26(:,335)-tomat26(:,235),'.','markersize',10,'color',[0.4,0.8,0.4])
+  [b,~,~,~,stats]=regress((tomat26(:,335)-tomat26(:,235)),[gregmat;ones(size(tcr4mat))]')
+ plot([0,20],[0,20;1,1]'*b,':','linewidth',3,'color',[0.4,0.8,0.4]/2+0.5)
+ r2(2)=stats(1);
+
+
+ 
+ p3=plot(tcrmat,tomat26(:,335)-tomat26(:,235),'.','markersize',10,'color',[0.4,0.4,0.8])
+ hold on
+  [b,bint,~,~,stats] =regress((tomat26(:,335)-tomat26(:,235)),[tcrmat;ones(size(tcr4mat))]')
+  plot([0,5],[0,5;1,1]'*b,':','linewidth',3,'color',[0.4,0.4,0.8]/2+0.5)
+
+ r2(3)=stats(1);
+
+
+ p4=plot(abs(stmat(:,150)'),tomat26(:,335)-tomat26(:,235),'.','markersize',10,'color',[0.8,0.4,0.8])
+    [b,~,~,~,stats]=regress((tomat26(:,335)-tomat26(:,235)),[abs(stmat(:,150)');ones(size(tcr4mat))]')
+   plot([0,60],[0,60;1,1]'*b,':','linewidth',3,'color',[0.8,0.4,0.8]/2+0.5)
+ r2(4)=stats(1);
+
+   
+legend([p1,p2,p3,p4],['T140 (R^2=' num2str(r2(1),2) ')'],['EffCS (R^2=' num2str(r2(2),2) ')'],['TCR (R^2=' num2str(r2(3),2) ')'],['A140 (R^2=' num2str(r2(4),2) ')'],'location','southeast')
+  ylabel('Warming 2000-2100 (K)')
+  xlabel('(K)')
+  xlim([0,30])
+  ylim([0,3])
+ 
+   title('(d) RCP2.6')
+
+
+
+ 
+   
+   set(gcf, 'PaperPosition', [0 0 8 6]);
+set(gcf, 'PaperSize', [8 6]); 
+print(gcf,'-dpdf','-painters',['corr.pdf']);
+
+
+  

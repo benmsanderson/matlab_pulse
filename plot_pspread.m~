@@ -1,0 +1,7 @@
+is3=find(abs(gregmat./2-3)<0.1)
+subplot(2,2,1)
+
+plot(tim21,tomat85(is3,:)')
+subplot(2,2,2)
+
+plot(tim3000,tomat26(is3,:)')

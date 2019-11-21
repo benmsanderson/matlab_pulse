@@ -1,0 +1,20 @@
+for i=1:numel(mdls)
+  if isfield(ens.(mdls{i}),'rcp26')
+    t_26(i)=mean(ens.(mdls{i}).rcp26.tas{1}(221:231))-mean(ens.(mdls{i}).rcp26.tas{1}(1:30));
+  else
+    t_26(i)=NaN;
+  end
+  
+  if isfield(ens.(mdls{i}),'rcp45')
+    t_45(i)=mean(ens.(mdls{i}).rcp45.tas{1}(221:231))-mean(ens.(mdls{i}).rcp45.tas{1}(1:30));
+  else
+    t_45(i)=NaN;
+  end
+  
+  if isfield(ens.(mdls{i}),'rcp85')
+    t_85(i)=mean(ens.(mdls{i}).rcp85.tas{1}(221:231))-mean(ens.(mdls{i}).rcp85.tas{1}(1:30));
+  else
+    t_85(i)=NaN;
+  end
+  
+end

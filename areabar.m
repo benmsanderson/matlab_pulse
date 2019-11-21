@@ -1,0 +1,114 @@
+function [p1,a]=areabar(tim,tmat,bnd,col,fillbar,fillbarls,alpa,hatch,ng,dots)
+  %% [p1,a]=areabar(tim,tmat,bnd,col,fillbar,fillbarls,alpa,hatch,ng)
+  if nargin<=3
+    col=[0.5,0.5,0.5];
+    
+  end
+  if nargin<=2
+    bnd=10;
+  end
+  
+    if nargin<5
+        fillbar=1;
+    end
+       if nargin<6
+        fillbarls=':';
+       end 
+       if nargin<7
+           alpa=0.2;
+       end
+       if nargin<8
+           hatch=0;
+           ng=6;
+       end
+       if nargin<9
+           ng=6;
+       end              
+       
+       if nargin<10
+	 dots=0;
+	 end
+if ~isnan(bnd)       
+ md=prctile(tmat',[50]);
+bnds=prctile(tmat',[bnd,100-bnd]);
+else
+    md=tmat(:,2)';
+    bnds=tmat(:,[1,3])';
+    end
+
+a1=area(tim,[bnds(1,:);bnds(2,:)-bnds(1,:)]');
+if fillbar
+set(a1(1),'Visible','off');
+set(a1(2),'FaceColor',col/2+0.5);
+if dots
+  set(a1(2),'linestyle',':');
+  set(a1(2),'linewidth',2);
+
+else
+  
+  set(a1(2),'linestyle','none');
+  end
+set(a1(2),'EdgeColor',col);
+
+set(a1(2),'FaceAlpha',alpa);
+
+else
+   set(a1(1),'Visible','off');
+set(a1(2),'FaceColor','none');
+set(a1(2),'linestyle','none');
+set(a1(2),'EdgeColor','none');
+
+set(a1(2),'FaceAlpha',alpa);
+end
+
+
+if hatch
+    findobj(a1(2));
+    set(a1(2),'Visible','on')
+    set(a1(2),'FaceColor','none');
+   set(a1(2),'EdgeColor',col/3+0.66);
+   set(a1(2),'linestyle',':');
+    for i=1:ng:(numel(tim)-ng)
+        
+        strts=[bnds(1,i),(ceil(bnds(1,i)*10):floor(bnds(2,i)*10))/ ...
+               10,bnds(2,i)];
+          rng=1:(numel(strts)-1);	
+        for j=rng
+if hatch==1
+  dgap=(strts(j+1)-strts(j))/0.1;
+  shifth=ng*dgap;
+end
+  if hatch==2
+    dgap=-(strts(j+1)-strts(j))/0.1;
+   shifth=0;
+
+  end
+    if hatch==3
+      dgap=0;%-(strts(j+1)-strts(j))/0.1;
+     shifth=0;
+
+    end
+    if hatch==4
+        shifth=0;
+
+        dgap=(strts(j+1)-strts(j))/0.1;
+            plot([tim(i),tim(i)-ng*dgap]+shifth,[strts(j),strts(j+1)],'color',col/2+0.4)
+	    dgap=-(strts(j+1)-strts(j))/0.1;
+	    
+end
+            plot([tim(i),tim(i)-ng*dgap]+shifth,[strts(j),strts(j+1)],'color',col/2+0.4)
+        end
+    end
+    
+    %  hPatch1 = findobj(a1(2), 'Type', 'patch')
+    %    hatchfill(hPatch1);
+end
+
+a=a1(2);
+hold on
+if fillbar
+p1=plot(tim,md,'color',col,'linewidth',2,'linestyle',fillbarls);
+else
+    p1=plot(tim,md,'color',col,'linewidth',2,'linestyle',fillbarls);
+
+end
