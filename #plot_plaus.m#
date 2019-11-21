@@ -1,7 +1,0 @@
-
-
-isplaus=find((ceopt(:,336,1,1)'-ceopt(:,286,1,1)')>-110);
-
-
-
-(ceopt(:,336,k,kk)'-ceopt(:,286,k,kk)')
