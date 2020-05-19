@@ -93,13 +93,13 @@ plot_peakneg_all
 
 
 %%ECS paper
-plot_pitrnd
+%plot_pitrnd
 
-plot_corr
-plot_tboxes
-plot_noise
+%plot_corr
+%plot_tboxes
+%plot_noise
 
-[tcr_act,tcr_act4,sens_act]=plot_s_tcr(ens,m_lite,mdls,r_arr,t_arr,mdlpst,mdlpstcf,mdlpstnl)
-plot_pdfs
-plot_pspread_sort
-table_noise
+%[tcr_act,tcr_act4,sens_act]=plot_s_tcr(ens,m_lite,mdls,r_arr,t_arr,mdlpst,mdlpstcf,mdlpstnl)
+%plot_pdfs
+%plot_pspread_sort
+%table_noise
