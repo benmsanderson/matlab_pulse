@@ -11,7 +11,7 @@ clf
  % p85=areabar(tim21,tomat85',10,[0.7,0.4,0.4],0,'-',0.2,3,3);
  
   hold on
- %    p85ml=areabar(tim21,tomat85ml',10,[0.7,0.4,0.4],1,'-.',0.7);
+			     %    p85ml=areabar(tim21,tomat85ml',10,[0.7,0.4,0.4],1,'-.',0.7);
 
     p85=areabar(tim21,tomat85',10,[0.7,0.4,0.4],5,'-',0.7,0,3);
 
@@ -202,7 +202,7 @@ set(gca,'ytick',[0.1,0.25,0.5,0.75,0.9])
 grid on
 
 xlabel('(K)')
-ylabel('iikelihood')
+ylabel('Likelihood')
 
    set(gcf, 'PaperPosition', [0 0 8 8]);
 set(gcf, 'PaperSize', [8 8]); 

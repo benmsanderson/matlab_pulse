@@ -14,6 +14,16 @@ pll=0;
 
 
 				%future constraint
+
+for i=1:numel(ens)
+
+  ttmp=ens.(mdls{i}).rcp85.tas{1};
+  ytmp=ens.(mdls{1}).rcp85.year{1};
+  ttt=1:find(ytmp==2020);
+
+
+
+				%future constraint
 futdat=[2020,2060,2100];
 clear tomat*fut
 for i=1:numel(futdat)
