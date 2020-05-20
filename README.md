@@ -5,7 +5,7 @@ Basic climate model is prm_fast.m
 
 Called as follows:
 
-[pco2 t r]=prm_fast(p0,emis,c0,f_aer,sum(fcg_had(:,3:5),2))
+[pco2 t r]=prm_fast(p0,emis,c0,f_aer,f_other)
 
 where pco2 is CO2 concentration in ppm
 t is global mean temperature
